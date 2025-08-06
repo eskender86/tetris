@@ -405,3 +405,9 @@ Makefile
 *.swp
 *.swo
 *.swn
+build/premake5
+.gitignore
+build/premake5.exe
+.gitignore
+build/premake5.lua
+build/premake5.osx
