@@ -1,5 +1,6 @@
 #include "raylib.h"
 #include "Grid.h"
+#include "LBlock.cpp"
 
 int main()
 {
@@ -11,17 +12,15 @@ int main()
 	Color darkBlue = {44, 44, 127, 255};
 
 	Grid grid;
-	grid.grid[0][0] = 1;
-	grid.grid[3][5] = 4;
-	grid.grid[17][8] = 7;
 
+	LBlock block = LBlock();
 	// game loop
 	while (!WindowShouldClose())
 	{
 		BeginDrawing();
 		ClearBackground(darkBlue);
 		grid.Draw();
-
+		block.Draw();
 		EndDrawing();
 	}
 
