@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include "Grid.h"
 #include "LBlock.cpp"
+#include "TBlock.cpp"
 
 int main()
 {
@@ -13,7 +14,8 @@ int main()
 
 	Grid grid;
 
-	LBlock block = LBlock();
+	TBlock block = TBlock();
+
 	// game loop
 	while (!WindowShouldClose())
 	{
