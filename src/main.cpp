@@ -1,12 +1,27 @@
 #include "raylib.h"
 #include "Game.h"
 
+double lastUpdateTime = 0;
+
+bool EventTriggered(double interval)
+{
+	double currentTime = GetTime();
+
+	if (currentTime - lastUpdateTime >= interval)
+	{
+		lastUpdateTime = currentTime;
+		return true;
+	}
+
+	return false;
+}
+
 int main()
 {
+	Color darkBlue = {44, 44, 127, 255};
 	// Create the window and OpenGL context
 	InitWindow(300, 600, "Tetris");
 	SetTargetFPS(60);
-	Color darkBlue = {44, 44, 127, 255};
 
 	Game game = Game();
 
@@ -14,6 +29,9 @@ int main()
 	while (!WindowShouldClose())
 	{
 		game.HandleInput();
+
+		if (EventTriggered(0.2))
+			game.MoveBlockDown();
 
 		BeginDrawing();
 		ClearBackground(darkBlue);

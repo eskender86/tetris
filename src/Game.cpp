@@ -1,4 +1,5 @@
 #include "Game.h"
+#include <iostream>
 
 Game::Game()
 {
@@ -10,12 +11,15 @@ Game::Game()
 
 Block Game::GetRandomBlock()
 {
+    // Seed the random number generator
+    srand(time(NULL));
+
     if (blocks.empty())
     {
         blocks = GetAllBlocks();
     }
 
-    int randomIndex = rand() % blocks.size();
+    int randomIndex = (rand() % blocks.size());
 
     Block block = blocks[randomIndex];
 
@@ -49,6 +53,9 @@ void Game::HandleInput()
     case KEY_DOWN:
         MoveBlockDown();
         break;
+    case KEY_UP:
+        RotateBlock();
+        break;
     }
 }
 
@@ -73,7 +80,10 @@ void Game::MoveBlockDown()
     currentBlock.Move(1, 0);
 
     if (IsBlockOutside())
+    {
         currentBlock.Move(-1, 0);
+        LockBlock();
+    }
 }
 
 bool Game::IsBlockOutside()
@@ -87,4 +97,27 @@ bool Game::IsBlockOutside()
     }
 
     return false;
+}
+
+void Game::RotateBlock()
+{
+    currentBlock.Rotate();
+
+    if (IsBlockOutside())
+    {
+        currentBlock.UnRotation();
+    }
+}
+
+void Game::LockBlock()
+{
+    std::vector<Position> tiles = currentBlock.GetCellPositions();
+
+    for (Position item : tiles)
+    {
+        grid.grid[item.row][item.column] = currentBlock.id;
+    }
+
+    currentBlock = nextBlock;
+    nextBlock = GetRandomBlock();
 }

@@ -12,6 +12,9 @@ public:
 
     void Draw();
     void Move(int rows, int columns);
+    void Rotate();
+    void UnRotation();
+
     std::vector<Position> GetCellPositions();
 
     int id;
